@@ -79,7 +79,7 @@ file-converter-get_filelist() {
     # TODO: Support mtp:// , smb:// etc.,
     filelist=$(yad --title="$TITLE" --image=tap-create --center \
         --width=360 --height=240 \
-        --text="Welcome to file-converter version ${APP_VERSION}\n\n<b>Please DRAG AND DROP files here , then CLICK OK</b>\n\nYou need not do anything in the terminal that just came up." --text-align=center \
+        --text="Welcome to file-converter version ${APP_VERSION}\n\n<b>Please DRAG AND DROP files here \n Then CLICK OK</b>\n\n" --text-align=center \
         --button=gtk-ok \
         --dnd \
         --cmd echo "$1" | sed 's/^file\:\/\///' )
@@ -393,7 +393,7 @@ echo "0" > /tmp/file-converter-progress-bar
 # Start the progress bar.
 progress-bar-monitor_progress | \
     yad --title "$TITLE" --center --progress --width 540 \
-        --text="Converting..... Please wait. \n You need not do anything in the terminal that just came up.\nfile-converter does that for you :)\nTo abort, close that terminal window." \
+        --text="Converting..... Please wait." \
         --percentage=0 --auto-close --no-button &
 
 echo ""

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=file-converter
+Name=File Converter
 Name[ca]=
 Name[de]=
 Name[el]=
@@ -30,7 +30,7 @@ Comment[pl]=
 Comment[pt_br]=
 Comment[ru]=
 Comment[sv]=
-Exec=file-converter
+Exec=file-converter-script
 Icon=file-converter
 Categories=Utility;GTK;
 Name[en_US.UTF-8]=file-converter
