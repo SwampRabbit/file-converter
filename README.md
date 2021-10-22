@@ -33,4 +33,4 @@ I will update this application more when I find time, it appears to function fai
 This application was created by GitHub user TimothySimon123 at github.com/TimothySimon123/file-converter.  The actual user of this account is unknown and was
 created under false pretext.  I originally was assisting with this application on the MX Linux forums and created the debianization for it.  I had a fork off the original, but decided to split it off as contact with the user is no longer possible, and I would like for the application to be somewhat maintained.
 
-I do not even know if the original code was actually created by the false user or not.  If by chance you come across this Repo and can substantiate that part of all of the original code is yours, please let me know, and I will update copyright and credits accordingly.
+I do not even know if the original code was actually created by the false user or not.  If by chance you come across this Repo and can substantiate that part of or all of the original code is yours, please let me know, and I will update copyright and credits accordingly.
