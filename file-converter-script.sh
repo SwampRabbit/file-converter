@@ -4,6 +4,7 @@ export TITLE="file-converter"
 export APP_VERSION="0.3.0"
 
 HERE="$(dirname "$(readlink -f "${0}")")"
+WINDOW_ICON=/usr/share/pixmaps/file-converter.png
 
 file-converter-pdf2jpg() {
 pdftoppm -jpeg "$1" "$(echo "$2" | sed 's/\.jpg$//g')"
@@ -28,11 +29,11 @@ pdftoppm "$1" "$(echo "$2" | sed 's/\.ppm$//g')"
 }
 
 yad_show_info() {
-    yad --image=tap-create --title "$TITLE" --center --width=360 --height=240 --text="$@"
+    yad --image=tap-create --title "$TITLE" --center --width=360 --height=240 --text="$@" --window-icon="$WINDOW_ICON"
 }
 
 yad_show_error_incompatible_format() {
-yad --image=tap-create --title "$TITLE" --center --width=540 --height=360 --text='Please use supported and compatible formats.
+yad --image=tap-create --title "$TITLE" --center --width=540 --height=360 --window-icon="$WINDOW_ICON" --text='Please use supported and compatible formats.
 
 These formats and their equivalents are supported:
  1) PDF -> html odg jpg jpg-OnlyFirstPage png tiff ppm
@@ -79,6 +80,7 @@ file-converter-get_filelist() {
     # TODO: Support mtp:// , smb:// etc.,
     filelist=$(yad --title="$TITLE" --image=tap-create --center \
         --width=360 --height=240 \
+        --window-icon="$WINDOW_ICON" \
         --text="Welcome to file-converter version ${APP_VERSION}\n\n<b>Please DRAG AND DROP files here \n Then CLICK OK</b>\n\n" --text-align=center \
         --button=gtk-ok \
         --dnd \
@@ -96,7 +98,7 @@ file-converter-get_filelist() {
     # On clicking OK , show the file selection dialog again.
     # On clicking Cancel, exit now.
     if [ -z "$filelist" ] ; then
-        yad_show_info "You have not selected any files." || exit 1
+        yad_show_info "You have not selected any files." --window-icon="$WINDOW_ICON" || exit 1
         file-converter-get_filelist
     fi
 
@@ -111,7 +113,7 @@ file-converter-get_filelist() {
     done <<< "$filelist"
 
     if [ -n "$ERR_INVALID_FILES" ] ; then
-        yad_show_info "Please select valid and readable files"
+        yad_show_info "Please select valid and readable files" --window-icon="$WINDOW_ICON"
         file-converter-get_filelist
     fi
 
@@ -126,6 +128,7 @@ file-converter-get_OUT_FORMAT() {
 # Now, it is hidden by 2> /dev/null
 # TODO: Find a permanent fix.
 RESP=$(yad --title="$TITLE" --image=tap-create --center --width=360 --height=240 \
+                --window-icon="$WINDOW_ICON" \
                 --form --field="Output format:CB" "$AVAILABLE_OUT_FORMATS" \
                 --text="$FILE_COUNT files will be converted. \n $LO_CONV_MESSAGE \n Press OK to proceed" \
                  2> /dev/null || echo "EXIT NOW")
@@ -140,7 +143,7 @@ OUT_FORMAT="$(echo "$RESP" | sed 's/|$//g')"
 # On clicking OK , show the format selection dialog again.
 # On clicking Cancel, exit now.
 if [ -z "$OUT_FORMAT" ] ; then
-    yad_show_info "Please run again and select a vaild output format." || exit 1
+    yad_show_info "Please run again and select a vaild output format." --window-icon="$WINDOW_ICON" || exit 1
     file-converter-get_OUT_FORMAT
 fi
 
@@ -161,7 +164,7 @@ fi
 
 # Disallow running as root
 if [ "$(whoami)" = "root" ] ; then
-    yad_show_info "This app SHOULD NOT be run as root / using sudo"
+    yad_show_info "This app SHOULD NOT be run as root / using sudo"     --window-icon="$WINDOW_ICON"
     exit 1
 fi
 
@@ -280,7 +283,7 @@ while read IN_FORMAT ; do
         USE_LIBREOFFICE="true"
         # Exit with error message if libreoffice is not available
         if ! which libreoffice > /dev/null ; then
-            yad_show_info "To convert document files, please install 'libreoffice' from the software store OR with the command\nsudo apt update && sudo apt install libreoffice"
+            yad_show_info "To convert document files, please install 'libreoffice' from the software store OR with the command\nsudo apt update && sudo apt install libreoffice" --window-icon="$WINDOW_ICON"
             exit 1
         fi
         
